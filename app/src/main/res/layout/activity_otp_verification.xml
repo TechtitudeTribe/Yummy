@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OtpVerificationActivity">
+
+    <ImageView
+        android:id="@+id/otp_verify_activity_header"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_otp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/otp_resend_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resend in "
+        android:textSize="12sp"
+        android:layout_marginTop="25dp"
+        android:layout_alignStart="@+id/otp_text"
+        android:layout_below="@id/otp_verify_activity_header"
+        android:layout_alignLeft="@+id/otp_text"
+        android:fontFamily="serif"
+        android:textColor="@color/smoky_black"/>
+    <TextView
+        android:id="@+id/otp_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:60"
+        android:textSize="12sp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@id/otp_verify_activity_header"
+        android:layout_toRightOf="@+id/otp_resend_text"
+        android:fontFamily="serif"
+        android:textColor="@color/smoky_black"/>
+    <TextView
+        android:id="@+id/otp_resend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resend Otp"
+        android:visibility="visible"
+        android:textSize="14sp"
+        android:paddingBottom="2dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignEnd="@+id/otp_text"
+        android:layout_below="@id/otp_verify_activity_header"
+        android:layout_alignRight="@+id/otp_text"
+        android:textColor="@color/white"
+        android:background="@drawable/text_background"
+        android:backgroundTint="@color/smoky_black"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:fontFamily="serif"/>
+    <EditText
+        android:id="@+id/otp_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="6"
+        android:layout_below="@+id/otp_verify_activity_header"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:hint="000000"
+        android:translationZ="5dp"
+        android:letterSpacing="1.5"
+        android:background="@drawable/text_background"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/smoky_black"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:fontFamily="serif"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/otp_verification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verify"
+        android:fontFamily="serif"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:background="@drawable/text_background"
+        android:backgroundTint="@color/creative_red"
+        android:paddingRight="40dp"
+        android:paddingLeft="40dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/otp_text"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        android:translationZ="5dp"/>
+
+</RelativeLayout>

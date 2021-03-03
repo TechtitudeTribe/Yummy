@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="45dp"
+        android:id="@+id/shop_details_card_layout"
+        android:layout_width="match_parent"
+        android:translationZ="5dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp">
+        <RelativeLayout
+            android:id="@+id/shop_details_relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/white">
+            <TextView
+                android:id="@+id/shop_details_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/creative_green"
+                android:textSize="16sp"
+                android:text="Shop Name"
+                android:fontFamily="serif"/>
+            <TextView
+                android:id="@+id/shop_details_schedule"
+                android:layout_below="@+id/shop_details_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="9 a.m. - 10 p.m."
+                android:textSize="15sp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:textColor="@color/creative_green"/>
+            <ImageView
+                android:id="@+id/shop_details_phone"
+                android:layout_below="@+id/shop_details_name"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/circular_background"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/phone_call"
+                app:tint="@color/creative_green"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="140dp" />
+            <ImageView
+                android:id="@+id/shop_details_mail"
+                android:layout_below="@+id/shop_details_phone"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/circular_background"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/email"
+                app:tint="@color/creative_green"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="140dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:cardCornerRadius="20dp"
+        android:translationZ="5dp"
+        android:layout_marginLeft="20dp"
+        android:translationY="30dp"
+        android:layout_alignBottom="@id/shop_details_card_layout">
+        <ImageView
+            android:id="@+id/shop_details_shop_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/veg_pizza"
+            android:scaleType="centerCrop"/>
+        <ProgressBar
+            android:id="@+id/shop_details_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/creative_yellow_dark"
+            android:layout_gravity="center"/>
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/shop_details_status"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/close"
+        android:translationZ="7dp"
+        app:tint="@color/creative_green"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="60dp"/>
+
+</RelativeLayout>

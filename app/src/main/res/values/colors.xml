@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="viewColor">#34495E</color>
+    <color name="facebook_color">#2471A3</color>
+    <color name="whatsapp_color">#2ECC71</color>
+    <color name="twitter_color">#3498DB</color>
+    <color name="title_background">#9e9e9e</color>
+    <color name="gradient_start_color">#70d8d4</color>
+    <color name="gradient_end_color">#55dbda</color>
+    <color name="background_color">#dee1e6</color>
+    <color name="grey_accent">#dedadb</color>
+    <color name="main_color">#00b0ca</color>
+    <color name="smoky_black">#444548</color>
+    <color name="creative_red">#cd2d2b</color>
+    <color name="creative_red_light">#f07473</color>
+    <color name="creative_orange">#f0802c</color>
+    <color name="creative_orange_light">#f4a468</color>
+    <color name="creative_green">#13aa95</color>
+    <color name="creative_green_light">#5ae3d0</color>
+    <color name="creative_violet">#803b8c</color>
+    <color name="creative_violet_light">#d87ce7</color>
+    <color name="creative_sky_blue">#00aacf</color>
+    <color name="creative_sky_blue_light">#6cd7ee</color>
+    <color name="creative_yellow">#ffc143</color>
+    <color name="creative_yellow_light">#f2cf88</color>
+    <color name="creative_yellow_dark">#ffb51e</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="golden_yellow">#FFD700</color>
+    <color name="green">#008000</color>
+</resources>
