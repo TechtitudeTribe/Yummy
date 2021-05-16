@@ -10,57 +10,68 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/text_background"
+        android:backgroundTint="@color/smoky_black"
         android:layout_marginTop="10dp">
         <ImageView
             android:id="@+id/app_logo"
             android:layout_width="36dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_centerVertical="true"
             android:layout_height="36dp"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/app_logo"/>
         <TextView
-            android:id="@+id/drug_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Yummy..."
-            android:layout_marginLeft="40dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/app_logo"
             android:textStyle="bold"
-            android:textSize="20sp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:layout_marginTop="0dp"
-            android:fontFamily="serif"
-            android:textColor="@color/smoky_black"/>
-    </RelativeLayout>
+            android:layout_centerVertical="true"
+            android:fontFamily="serif"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_search"
+            android:layout_toLeftOf="@+id/id_share"
+            android:src="@drawable/icon_search"
+            app:tint="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_share"
+            android:src="@drawable/icon_share"
+            app:tint="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"/>
 
-    <ImageView
-        android:id="@+id/id_notify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_notification"
-        app:tint="@color/smoky_black"
-        android:translationZ="5dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/id_share" />
-    <ImageView
-        android:id="@+id/id_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_share"
-        app:tint="@color/smoky_black"
-        android:translationZ="5dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="15dp"
-        android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/home_viewpager"
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:paddingStart="60dp"
+        android:translationY="10dp"
         android:paddingEnd="60dp"
         android:layout_marginTop="65dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/text_background"
+        android:backgroundTint="@color/smoky_black"
+        android:layout_marginTop="50dp"
+        android:layout_alignTop="@+id/home_horizontal_scroll_view"/>
 
     <HorizontalScrollView
         android:id="@+id/home_horizontal_scroll_view"
@@ -211,6 +222,28 @@
             android:layout_height="wrap_content"
             android:indeterminateTint="@color/creative_yellow_dark"
             android:layout_gravity="center"/>
+        <LinearLayout
+            android:id="@+id/no_shop_found"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/horizontal_menu_scroll_view"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:tint="@color/white"
+                android:src="@drawable/sorry"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No shop found..."
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:fontFamily="serif"
+                android:layout_gravity="center"/>
+        </LinearLayout>
     </FrameLayout>
 
 </RelativeLayout>

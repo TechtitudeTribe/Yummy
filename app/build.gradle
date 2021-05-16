@@ -11,8 +11,8 @@ android {
         applicationId "com.techtitudetribe.yummy"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,5 +44,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.firebaseui:firebase-ui-database:2.1.1'
+    implementation 'com.firebaseui:firebase-ui-database:2.4.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
 }

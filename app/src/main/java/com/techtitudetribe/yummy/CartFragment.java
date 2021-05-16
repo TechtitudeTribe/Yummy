@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +41,7 @@ public class CartFragment extends Fragment {
     private DatabaseReference cartRef;
     private String currentUser;
     private RelativeLayout noCartLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +55,21 @@ public class CartFragment extends Fragment {
         recyclerView = (RecyclerView) v.findViewById(R.id.my_cart_list_view);
         noCartLayout = (RelativeLayout) v.findViewById(R.id.no_cart_layout);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.my_cart_swipe_container);
+        swipeRefreshLayout.setOnRefreshListener(this::displayCartItems);
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(),R.color.creative_green),
+                ContextCompat.getColor(getActivity(),R.color.creative_red),
+                ContextCompat.getColor(getActivity(),R.color.creative_violet),
+                ContextCompat.getColor(getActivity(),R.color.creative_sky_blue));
+
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                displayCartItems();
+            }
+        });
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setStackFromEnd(false);
         linearLayoutManager.setReverseLayout(false);
@@ -64,6 +81,7 @@ public class CartFragment extends Fragment {
                 if (snapshot.exists())
                 {
                     displayCartItems();
+                    noCartLayout.setVisibility(View.GONE);
                 }
                 else
                 {
@@ -79,132 +97,73 @@ public class CartFragment extends Fragment {
         });
 
         return v;
+
     }
 
     private void displayCartItems() {
         Query sort = cartRef.orderByChild("count");
-
-        FirebaseRecyclerAdapter<CartItemAdapter,CartItemViewHolder> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<CartItemAdapter, CartItemViewHolder>(
-                        CartItemAdapter.class,
-                        R.layout.cart_item_layout,
-                        CartItemViewHolder.class,
+        FirebaseRecyclerAdapter<CartShopItemAdapter,CartShopItemViewHolder> firebaseRecyclerAdapter
+                = new FirebaseRecyclerAdapter<CartShopItemAdapter, CartShopItemViewHolder>(
+                        CartShopItemAdapter.class,
+                        R.layout.shop_cart_item_layout,
+                        CartShopItemViewHolder.class,
                         sort
-                ) {
+        ) {
+            @Override
+            protected void populateViewHolder(CartShopItemViewHolder cartShopItemViewHolder, CartShopItemAdapter cartShopItemAdapter, int i) {
+
+                String key = getRef(i).getKey();
+                LinearLayout linearLayout = (LinearLayout) cartShopItemViewHolder.mView.findViewById(R.id.shop_cart_item_background);
+
+                switch (i%4)
+                {
+                    case 0 : linearLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_green));
+                        break;
+                    case 1 : linearLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_red));
+                        break;
+                    case 2 : linearLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_sky_blue));
+                        break;
+                    case 3 : linearLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_violet));
+                        break;
+                }
+
+                cartShopItemViewHolder.setItemNames(cartShopItemAdapter.getItemNames());
+                cartShopItemViewHolder.setShopName(cartShopItemAdapter.getShopName());
+                progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+
+                cartShopItemViewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    protected void populateViewHolder(CartItemViewHolder cartItemViewHolder, CartItemAdapter cartItemAdapter, int i) {
-                        cartItemViewHolder.setItemDescription(cartItemAdapter.getItemDescription());
-                        cartItemViewHolder.setItemImage(cartItemAdapter.getItemImage(),getActivity());
-                        cartItemViewHolder.setItemName(cartItemAdapter.getItemName());
-                        cartItemViewHolder.setItemQuantity(cartItemAdapter.getItemQuantity());
-                        cartItemViewHolder.setItemCustomizedPrice(cartItemAdapter.getItemCustomizedPrice());
-                        progressBar.setVisibility(View.GONE);
-
-                        RelativeLayout relativeLayout = (RelativeLayout) cartItemViewHolder.mView.findViewById(R.id.cart_item_main_background);
-                        TextView name = (TextView) cartItemViewHolder.mView.findViewById(R.id.cart_item_quantity);
-                        TextView price = (TextView) cartItemViewHolder.mView.findViewById(R.id.cart_item_description);
-                        TextView priceTag = (TextView) cartItemViewHolder.mView.findViewById(R.id.cart_item_price_tag);
-                        //LinearLayout relativeLayout = (LinearLayout) cartItemViewHolder.mView.findViewById(R.id.cart_item_description_layout);
-                        ImageView delete = (ImageView) cartItemViewHolder.mView.findViewById(R.id.cart_item_delete);
-                        RelativeLayout deleteLayout = (RelativeLayout) cartItemViewHolder.mView.findViewById(R.id.cart_item_delete_layout);
-                        String key = getRef(i).getKey();
-
-                        switch (i%4)
-                        {
-                            case 0 : relativeLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_green));
-                                name.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_green));
-                                price.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_green));
-                                /*priceTag.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_green));*/
-                                delete.setColorFilter(ContextCompat.getColor(getActivity(),R.color.creative_green));
-                                break;
-                            case 1 : relativeLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_red));
-                                name.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_red));
-                                price.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_red));
-                                /*priceTag.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_red));*/
-                                delete.setColorFilter(ContextCompat.getColor(getActivity(),R.color.creative_red));
-                                break;
-                            case 2 : relativeLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_sky_blue));
-                                name.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_sky_blue));
-                                price.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_sky_blue));
-                                //priceTag.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_sky_blue));*/
-                                delete.setColorFilter(ContextCompat.getColor(getActivity(),R.color.creative_sky_blue));
-                                break;
-                            case 3 : relativeLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_violet));
-                                name.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_violet));
-                                price.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_violet));
-                                //priceTag.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_violet));*/
-                                delete.setColorFilter(ContextCompat.getColor(getActivity(),R.color.creative_violet));
-                                break;
-                        }
-
-                        cartItemViewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(getActivity(),CartItemDescriptionActivity.class);
-                                intent.putExtra("key",key);
-                                startActivity(intent);
-                            }
-                        });
-                        deleteLayout.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                cartRef.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful())
-                                        {
-                                            Toast.makeText(getActivity(), "Item removed successfully...", Toast.LENGTH_SHORT).show();
-                                        }
-                                        else
-                                        {
-                                            String mssg = task.getException().toString();
-                                            Toast.makeText(getActivity(), "Error Occurred : "+mssg, Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                            }
-                        });
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(),ShopCartItemActivity.class);
+                        intent.putExtra("key",key);
+                        startActivity(intent);
                     }
-                };
+                });
+            }
+        };
         recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
-    public static class CartItemViewHolder extends RecyclerView.ViewHolder {
+    public static class CartShopItemViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-        public CartItemViewHolder(@NonNull View itemView) {
+        public CartShopItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            mView=itemView;
+            mView = itemView;
         }
 
-        public void setItemName(String itemName)
+        public void setItemNames(String itemNames)
         {
-            TextView name = (TextView) mView.findViewById(R.id.cart_item_name);
-            name.setText(itemName);
+            TextView textView = (TextView) mView.findViewById(R.id.shop_cart_items_name);
+            textView.setText(itemNames);
         }
 
-        public void setItemCustomizedPrice(String itemCustomizedPrice)
+        public void setShopName(String shopName)
         {
-            TextView price = (TextView) mView.findViewById(R.id.cart_item_price);
-            price.setText(itemCustomizedPrice);
-        }
-
-        public void setItemImage(String itemImage, Context context)
-        {
-            ImageView image = (ImageView) mView.findViewById(R.id.cart_item_image);
-            Picasso.with(context).load(itemImage).placeholder(R.drawable.ic_default_food).into(image);
-        }
-
-        public void setItemDescription(String itemDescription)
-        {
-            TextView description = (TextView) mView.findViewById(R.id.cart_item_description);
-            description.setText(itemDescription);
-        }
-
-        public void setItemQuantity(String itemQuantity)
-        {
-            TextView quantity = (TextView) mView.findViewById(R.id.cart_item_quantity);
-            quantity.setText("Quantity : "+itemQuantity);
+            TextView textView = (TextView) mView.findViewById(R.id.shop_cart_item_shop_name);
+            textView.setText(shopName);
         }
     }
+
 }

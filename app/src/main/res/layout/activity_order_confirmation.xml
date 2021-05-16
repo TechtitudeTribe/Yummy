@@ -53,13 +53,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="0dp"
             android:layout_marginRight="30dp"
             app:cardCornerRadius="20dp">
             <ImageView
                 android:id="@+id/order_confirmation_item_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:src="@drawable/food_image"
                 android:scaleType="fitXY" />
         </androidx.cardview.widget.CardView>
 
@@ -71,7 +72,8 @@
             android:text="Item Names"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/smoky_black"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -87,188 +89,176 @@
             android:layout_marginLeft="30dp"
             android:fontFamily="serif"/>
         <TextView
-            android:id="@+id/order_confirmation_item_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_below="@+id/order_confirmation_item_names"
-            android:text="Total Description"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:textColor="@color/smoky_black"
-            android:textSize="14sp"
-            android:fontFamily="serif"/>
-        <LinearLayout
-            android:id="@+id/order_confirmation_item_quantity_layout"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/order_confirmation_item_description"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quantity : "
-                android:layout_marginLeft="30dp"
-
-                android:textColor="@color/smoky_black"
-                android:textSize="14sp"
-                android:fontFamily="serif"/>
-            <TextView
-                android:id="@+id/order_confirmation_item_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/order_confirmation_item_description"
-                android:text="1"
-                android:layout_marginRight="30dp"
-                android:textColor="@color/smoky_black"
-                android:textSize="14sp"
-                android:fontFamily="serif"/>
-        </LinearLayout>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/order_confirmation_item_quantity_layout"
-            android:text="Payment Method"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:text="Items' Details"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/smoky_black"
             android:textSize="15sp"
             android:textStyle="bold"
             android:fontFamily="serif"/>
-        <RadioGroup
-            android:id="@+id/payment_method"
-            android:layout_below="@+id/order_confirmation_item_quantity_layout"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cash"
-                android:fontFamily="serif"
-                android:buttonTint="@color/creative_yellow_dark"
-                android:text="Cash on Delivery"
-                android:textSize="14sp"/>
-            <RadioButton
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/upi"
-                android:buttonTint="@color/creative_yellow_dark"
-                android:text="Pay via UPI"
-                android:fontFamily="serif"
-                android:textSize="14sp"/>
-        </RadioGroup>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/payment_method"
-            android:text="Order Type"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:textColor="@color/smoky_black"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:fontFamily="serif"/>
-        <RadioGroup
-            android:id="@+id/order_type"
-            android:layout_below="@+id/payment_method"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/dine_in"
-                android:fontFamily="serif"
-                android:buttonTint="@color/creative_yellow_dark"
-                android:text="Dine In"
-                android:textSize="14sp"/>
-            <RadioButton
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Deliver"
-                android:buttonTint="@color/creative_yellow_dark"
-                android:text="Deliver"
-                android:fontFamily="serif"
-                android:textSize="14sp"/>
-        </RadioGroup>
-        <RelativeLayout
+        <ScrollView
+            android:id="@+id/order_confirmation_item_description_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="80dp">
-            <LinearLayout
-                android:id="@+id/dotted_linear_layout"
-                android:translationX="12dp"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/order_confirmation_item_names">
+            <TextView
+                android:id="@+id/order_confirmation_item_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Total Description"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/smoky_black"
+                android:textSize="14sp"
+                android:fontFamily="serif"/>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/payment_method_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_above="@+id/order_confirmation_item_description_total_amount"
+            android:layout_below="@+id/order_confirmation_item_description_scroll"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Method"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/smoky_black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="serif"/>
+            <RadioGroup
+                android:id="@+id/payment_method"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <ImageView
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_horizontal_dots"
-                    app:tint="@color/title_background"/>
-                <ImageView
+                    android:id="@+id/cash"
+                    android:fontFamily="serif"
+                    android:buttonTint="@color/creative_yellow_dark"
+                    android:text="Cash on Delivery"
+                    android:textSize="14sp"/>
+                <RadioButton
+                    android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:translationX="-6dp"
-                    android:src="@drawable/ic_horizontal_dots"
-                    app:tint="@color/title_background"/>
-                <ImageView
+                    android:id="@+id/upi"
+                    android:buttonTint="@color/creative_yellow_dark"
+                    android:text="Pay via UPI"
+                    android:fontFamily="serif"
+                    android:textSize="14sp"/>
+            </RadioGroup>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/order_confirmation_item_description_total_amount"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="70dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="30dp">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:translationX="-12dp"
-                    android:src="@drawable/ic_horizontal_dots"
-                    app:tint="@color/title_background"/>
-                <ImageView
+                    android:text="Item Price :"
+                    android:fontFamily="serif"
+                    android:paddingRight="11dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="left"
+                    android:textSize="14sp" />
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:translationX="-18dp"
-                    android:src="@drawable/ic_horizontal_dots"
-                    app:tint="@color/title_background"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:translationX="-24dp"
-                    android:src="@drawable/ic_horizontal_dots"
-                    app:tint="@color/title_background"/>
+                    android:text="Delivery Charge :"
+                    android:fontFamily="serif"
+                    android:paddingRight="11dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="left"
+                    android:textSize="14sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@color/smoky_black"/>
+
             </LinearLayout>
             <TextView
-                android:layout_below="@+id/dotted_linear_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total"
+                android:text="Total Amount:"
                 android:textColor="@color/smoky_black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="30dp"
                 android:fontFamily="serif"/>
-            <TextView
-                android:id="@+id/order_confirmation_price"
-                android:layout_below="@+id/dotted_linear_layout"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="000"
-                android:textColor="@color/creative_yellow_dark"
-                android:drawableTint="@color/creative_yellow_dark"
-                android:drawablePadding="3dp"
-                android:drawableLeft="@drawable/ic_india_rupee_symbol"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:orientation="vertical"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="30dp"
-                android:fontFamily="serif"/>
+                android:layout_marginRight="30dp">
+                <TextView
+                    android:id="@+id/order_confirmation_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:fontFamily="serif"
+                    android:paddingRight="11dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="right"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/delivery_charge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:fontFamily="serif"
+                    android:paddingRight="11dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="right"
+                    android:textSize="14sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:background="@color/smoky_black"/>
+                <TextView
+                    android:id="@+id/order_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="000"
+                    android:textColor="@color/creative_yellow_dark"
+                    android:drawableTint="@color/creative_yellow_dark"
+                    android:drawablePadding="3dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/ic_india_rupee_symbol"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:fontFamily="serif"/>
+            </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
 
@@ -278,7 +268,7 @@
         android:layout_height="wrap_content"
         android:text="Proceed To Pay"
         android:textSize="16sp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@drawable/text_background"
         android:backgroundTint="@color/creative_yellow_dark"
         android:textColor="@color/white"
@@ -310,5 +300,112 @@
         android:paddingRight="30dp"
         android:translationZ="5dp"
         android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/proceed_to_verification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send To Verification"
+        android:textSize="16sp"
+        android:visibility="visible"
+        android:background="@drawable/text_background"
+        android:backgroundTint="@color/creative_yellow_dark"
+        android:textColor="@color/white"
+        android:fontFamily="serif"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:translationZ="5dp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/order_seller_id"
+        android:visibility="invisible"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/order_shop_id"
+        android:visibility="invisible"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/order_shop_name"
+        android:visibility="invisible"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/order_user_name"
+        android:visibility="invisible"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/order_user_number"
+        android:visibility="invisible"/>
+    <RelativeLayout
+        android:id="@+id/update_profile_order_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/update_profile_order_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    app:tint="@color/white"
+                    android:padding="10dp"
+                    android:src="@drawable/update_profile_first"
+                    android:background="@color/creative_yellow_dark"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:text="Please update your\nprofile first...\n\nProfile -> Edit option"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:fontFamily="serif"
+                    android:textColor="@color/white"
+                    android:background="@color/smoky_black"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/update_profile_order_card_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_add"
+            android:padding="5dp"
+            android:rotation="45"
+            app:tint="@color/white"
+            android:layout_alignTop="@+id/update_profile_order_card"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:translationZ="5dp"
+            android:translationY="-20dp"
+            android:background="@drawable/circular_background"
+            android:backgroundTint="@color/smoky_black"/>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/place_order_progress_bar"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        android:indeterminateTint="@color/smoky_black"
+        android:translationZ="8dp"/>
 
 </RelativeLayout>

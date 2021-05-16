@@ -18,11 +18,13 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -51,24 +53,28 @@ public class HomeFragment extends Fragment {
     private ProgressBar shopProgressBar;
     private static final int REQUEST_CALL = 1;
     private String contactNumber;
-    private ImageView restaurantImage, foodStallImage, bakeryImage, groceryImage;
+    private ImageView restaurantImage, foodStallImage, bakeryImage, groceryImage,search,share;
     private TextView restaurantText, foodStallText, bakeryText, groceryText;
     private LinearLayout restaurant, foodStall, bakery, grocery;
     private String category = "Restaurant";
+    private LinearLayout noShopFound;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.home_fragment, container, false);
 
         viewPager2 = (ViewPager2) v.findViewById(R.id.home_viewpager);
-        shopRef = FirebaseDatabase.getInstance().getReference().child("Shopkeepers").child("Restaurant");
+        shopRef = FirebaseDatabase.getInstance().getReference().child("Shops").child("Restaurant");
         shopProgressBar = (ProgressBar) v.findViewById(R.id.shop_details_list_progress_bar);
+        noShopFound = (LinearLayout) v.findViewById(R.id.no_shop_found);
+        share = (ImageView) v.findViewById(R.id.id_share);
 
         restaurant = (LinearLayout) v.findViewById(R.id.restaurant);
         foodStall = (LinearLayout) v.findViewById(R.id.food_stall);
         bakery = (LinearLayout) v.findViewById(R.id.bakery);
         grocery = (LinearLayout) v.findViewById(R.id.grocery);
 
+        search = (ImageView) v.findViewById(R.id.id_search);
         restaurantImage = (ImageView) v.findViewById(R.id.restaurant_image);
         foodStallImage = (ImageView) v.findViewById(R.id.food_stall_image);
         bakeryImage = (ImageView) v.findViewById(R.id.bakery_image);
@@ -99,6 +105,28 @@ public class HomeFragment extends Fragment {
                 float r = 1 - Math.abs(position);
                 page.setScaleY(0.85f + r * 0.15f);
                 page.setScaleX(0.80f + r * 0.40f);
+            }
+        });
+
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                String shareMessage= "\nTry this awesome application for delicious foods\n\n";
+                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=com.techtitudetribe.yummy"+"\n\n";
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                startActivity(Intent.createChooser(shareIntent, "choose one"));
             }
         });
 
@@ -136,6 +164,34 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        shopDetailsList = (RecyclerView) v.findViewById(R.id.shop_details_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setReverseLayout(false);
+        linearLayoutManager.setStackFromEnd(false);
+        shopDetailsList.setLayoutManager(linearLayoutManager);
+
+        shopRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    displayShopList();
+                    noShopFound.setVisibility(View.GONE);
+                }
+                else
+                {
+                    shopDetailsList.setVisibility(View.GONE);
+                    noShopFound.setVisibility(View.VISIBLE);
+                    shopProgressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         restaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,9 +204,30 @@ public class HomeFragment extends Fragment {
                 bakeryText.setTextColor(ContextCompat.getColor(getActivity(),R.color.white));
                 groceryText.setTextColor(ContextCompat.getColor(getActivity(),R.color.white));
                 shopProgressBar.setVisibility(View.VISIBLE);
-                shopRef = FirebaseDatabase.getInstance().getReference().child("Shopkeepers").child("Restaurant");
+                shopRef = FirebaseDatabase.getInstance().getReference().child("Shops").child("Restaurant");
                 category = "Restaurant";
-                displayShopList();
+                shopRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists())
+                        {
+                            shopDetailsList.setVisibility(View.VISIBLE);
+                            displayShopList();
+                            noShopFound.setVisibility(View.GONE);
+                        }
+                        else
+                        {
+                            shopDetailsList.setVisibility(View.GONE);
+                            noShopFound.setVisibility(View.VISIBLE);
+                            shopProgressBar.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
         foodStall.setOnClickListener(new View.OnClickListener() {
@@ -165,8 +242,29 @@ public class HomeFragment extends Fragment {
                 bakeryText.setTextColor(ContextCompat.getColor(getActivity(),R.color.white));
                 groceryText.setTextColor(ContextCompat.getColor(getActivity(),R.color.white));
                 shopProgressBar.setVisibility(View.VISIBLE);
-                shopRef = FirebaseDatabase.getInstance().getReference().child("Shopkeepers").child("Food Stall");
-                displayShopList();
+                shopRef = FirebaseDatabase.getInstance().getReference().child("Shops").child("Food Stall");
+                shopRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists())
+                        {
+                            shopDetailsList.setVisibility(View.VISIBLE);
+                            displayShopList();
+                            noShopFound.setVisibility(View.GONE);
+                        }
+                        else
+                        {
+                            shopDetailsList.setVisibility(View.GONE);
+                            noShopFound.setVisibility(View.VISIBLE);
+                            shopProgressBar.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 category = "Food Stall";
             }
         });
@@ -182,8 +280,29 @@ public class HomeFragment extends Fragment {
                 bakeryText.setTextColor(ContextCompat.getColor(getActivity(),R.color.smoky_black));
                 groceryText.setTextColor(ContextCompat.getColor(getActivity(),R.color.white));
                 shopProgressBar.setVisibility(View.VISIBLE);
-                shopRef = FirebaseDatabase.getInstance().getReference().child("Shopkeepers").child("Bakery");
-                displayShopList();
+                shopRef = FirebaseDatabase.getInstance().getReference().child("Shops").child("Bakery");
+                shopRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists())
+                        {
+                            shopDetailsList.setVisibility(View.VISIBLE);
+                            displayShopList();
+                            noShopFound.setVisibility(View.GONE);
+                        }
+                        else
+                        {
+                            shopDetailsList.setVisibility(View.GONE);
+                            noShopFound.setVisibility(View.VISIBLE);
+                            shopProgressBar.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 category = "Bakery";
             }
         });
@@ -199,19 +318,33 @@ public class HomeFragment extends Fragment {
                 bakeryText.setTextColor(ContextCompat.getColor(getActivity(),R.color.white));
                 groceryText.setTextColor(ContextCompat.getColor(getActivity(),R.color.smoky_black));
                 shopProgressBar.setVisibility(View.VISIBLE);
-                shopRef = FirebaseDatabase.getInstance().getReference().child("Shopkeepers").child("Grocery");
-                displayShopList();
+                shopRef = FirebaseDatabase.getInstance().getReference().child("Shops").child("Grocery");
+                shopRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists())
+                        {
+                            shopDetailsList.setVisibility(View.VISIBLE);
+                            displayShopList();
+                            noShopFound.setVisibility(View.GONE);
+                        }
+                        else
+                        {
+                            shopDetailsList.setVisibility(View.GONE);
+                            noShopFound.setVisibility(View.VISIBLE);
+                            shopProgressBar.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 category = "Grocery";
             }
         });
 
-        shopDetailsList = (RecyclerView) v.findViewById(R.id.shop_details_list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setReverseLayout(false);
-        linearLayoutManager.setStackFromEnd(false);
-        shopDetailsList.setLayoutManager(linearLayoutManager);
-
-        displayShopList();
         return v;
     }
 
@@ -255,7 +388,7 @@ public class HomeFragment extends Fragment {
 
                         shopDetailsViewHolder.setShopName(shopDetailsAdapter.getShopName());
                         shopDetailsViewHolder.setShopSchedule(shopDetailsAdapter.getShopSchedule());
-                        shopDetailsViewHolder.setShopImageUrl(shopDetailsAdapter.getShopImageUrl(),getActivity());
+                        shopDetailsViewHolder.setShopFrontImage(shopDetailsAdapter.getShopFrontImage(),getActivity());
                         shopProgressBar.setVisibility(View.GONE);
                         progressBar.setVisibility(View.GONE);
                         String whatsappNumber = "+91 "+shopDetailsAdapter.getShopWhatsappNumber();
@@ -266,7 +399,7 @@ public class HomeFragment extends Fragment {
                         TextView name = (TextView) shopDetailsViewHolder.mView.findViewById(R.id.shop_details_name);
                         TextView time = (TextView) shopDetailsViewHolder.mView.findViewById(R.id.shop_details_schedule);
 
-                        switch (i%4)
+                        /*switch (i%4)
                         {
                             case 0 : name.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_green));
                                 time.setTextColor(ContextCompat.getColor(getActivity(),R.color.creative_green));
@@ -296,9 +429,20 @@ public class HomeFragment extends Fragment {
                                 status.setColorFilter(ContextCompat.getColor(getActivity(),R.color.creative_violet));
                                 //view.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_violet));
                                 break;
+                        }*/
+                        switch (i%4)
+                        {
+                            case 0 : relativeLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_green));
+                                break;
+                            case 1 : relativeLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_red));
+                                break;
+                            case 2 : relativeLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_sky_blue));
+                                break;
+                            case 3 : relativeLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.creative_violet));
+                                break;
                         }
 
-                        if (shopDetailsAdapter.getShopStatus().equals("open"))
+                        if (shopDetailsAdapter.getShopStatus().equals("Open"))
                         {
                             status.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.open));
                         }
@@ -317,11 +461,15 @@ public class HomeFragment extends Fragment {
                                         if (snapshot.exists())
                                         {
                                             String status = snapshot.child("shopStatus").getValue().toString();
-                                            if (status.equals("open"))
+                                            if (status.equals("Open"))
                                             {
                                                 Intent intent = new Intent(getActivity(),MenuItemActivity.class);
                                                 intent.putExtra("key",key);
                                                 intent.putExtra("category",category);
+                                                intent.putExtra("sellerId",shopDetailsAdapter.getUserId());
+                                                intent.putExtra("shopId",shopDetailsAdapter.getShopId());
+                                                intent.putExtra("shopName",shopDetailsAdapter.getShopName());
+                                                intent.putExtra("shopContact",shopDetailsAdapter.getShopContact());
                                                 startActivity(intent);
                                             }
                                         }
@@ -378,10 +526,10 @@ public class HomeFragment extends Fragment {
         }
 
 
-        public void setShopImageUrl(String shopImageUrl, Context context)
+        public void setShopFrontImage(String shopFrontImage,Context context)
         {
             ImageView image = (ImageView) mView.findViewById(R.id.shop_details_shop_image);
-            Picasso.with(context).load(shopImageUrl).placeholder(R.drawable.ic_baseline_shop_default).into(image);
+            Picasso.with(context).load(shopFrontImage).placeholder(R.drawable.ic_baseline_shop_default).into(image);
         }
     }
 
@@ -415,4 +563,5 @@ public class HomeFragment extends Fragment {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=" + whatsappNumber));
         }
     }
+
 }

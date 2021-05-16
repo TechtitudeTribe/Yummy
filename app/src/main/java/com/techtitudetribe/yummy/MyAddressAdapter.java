@@ -1,25 +1,17 @@
 package com.techtitudetribe.yummy;
 
 public class MyAddressAdapter {
-    String address, count;
+    String address;
 
     public MyAddressAdapter()
     {
 
     }
 
-    public MyAddressAdapter(String address, String count) {
+    public MyAddressAdapter(String address) {
         this.address = address;
-        this.count = count;
     }
 
-    public String getCount() {
-        return count;
-    }
-
-    public void setCount(String count) {
-        this.count = count;
-    }
 
     public String getAddress() {
         return address;

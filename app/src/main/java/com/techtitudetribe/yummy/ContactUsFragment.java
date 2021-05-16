@@ -20,34 +20,20 @@ import android.widget.Toast;
 
 public class ContactUsFragment extends Fragment {
 
-    private ImageView facebook,gmail,phone;
+    private ImageView phone;
     private TextView message;
-    private static String number = "+91 7078307134";
+    private static String number = "+91 7905596625";
     private static final int REQUEST_CALL = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.contact_us_fragment, container, false);
 
-        facebook = (ImageView) v.findViewById(R.id.need_help_facebook);
-        gmail = (ImageView) v.findViewById(R.id.need_help_mail);
+
         phone = (ImageView) v.findViewById(R.id.need_help_phone);
         message = (TextView) v.findViewById(R.id.need_help_message);
 
-        facebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent facebookIntent = openFacebook(getActivity());
-                startActivity(facebookIntent);
-            }
-        });
-        gmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent emailIntent = openGmail(getActivity());
-                startActivity(emailIntent);
-            }
-        });
+
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +52,7 @@ public class ContactUsFragment extends Fragment {
     }
 
     private void makePhoneCall() {
-        String number = "6397213673";
+        String number = "7905596625";
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),
@@ -87,27 +73,7 @@ public class ContactUsFragment extends Fragment {
         }
     }
 
-    public static Intent openFacebook(Context context) {
-        try {
-            context.getPackageManager()
-                    .getPackageInfo("com.facebook.katana", 0);
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/100027918345946"));
-        } catch (PackageManager.NameNotFoundException e) {
-            Toast.makeText(context, "Ple" +
-                    "+ase install facebook...", Toast.LENGTH_SHORT).show();
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id=100027918345946"));
-        }
 
-    }
-    public static Intent openGmail(Context context) {
-        try {
-            context.getPackageManager()
-                    .getPackageInfo("com.google.android.gm", 0);
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:BarbieCornp@gmail.com"));
-        } catch (Exception ex) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://mail.google.com/mail/u/2/#inbox?compose=new"));
-        }
-    }
     public static Intent openWhatsapp(Context context) {
         try {
             context.getPackageManager()

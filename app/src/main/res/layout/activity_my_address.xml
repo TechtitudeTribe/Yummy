@@ -41,7 +41,8 @@
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
-    <FrameLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/my_addresses_swipe_container"
         android:layout_below="@+id/my_address_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,7 +62,7 @@
             android:indeterminateTint="@color/creative_yellow_dark"
             android:layout_gravity="center"
             android:translationZ="5dp"/>
-    </FrameLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_address_floating_button"
@@ -77,7 +78,6 @@
         android:layout_marginBottom="30dp"
         android:layout_marginRight="20dp"
         app:backgroundTint="@color/smoky_black"/>
-
 
     <RelativeLayout
         android:id="@+id/no_address_layout"
@@ -141,117 +141,125 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp">
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:paddingTop="15dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingBottom="65dp">
-                <EditText
-                    android:id="@+id/new_address_house_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/text_background"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textSize="13sp"
-                    android:fontFamily="serif"
-                    android:maxLines="1"
-                    android:hint="Flat, House no., Building, Company" />
-                <EditText
-                    android:id="@+id/new_address_area"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/text_background"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textSize="13sp"
-                    android:fontFamily="serif"
-                    android:layout_marginTop="10dp"
-                    android:hint="Area, Colony, Street, Sector" />
-                <EditText
-                    android:id="@+id/new_address_landmark"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/text_background"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textSize="13sp"
-                    android:fontFamily="serif"
-                    android:layout_marginTop="10dp"
-                    android:hint="Landmark e.g. near Apollo Hospital" />
-                <EditText
-                    android:id="@+id/new_address_town"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/text_background"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textSize="13sp"
-                    android:maxLines="1"
-                    android:fontFamily="serif"
-                    android:layout_marginTop="10dp"
-                    android:hint="Town/City" />
-                <EditText
-                    android:id="@+id/new_address_pincode"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/text_background"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textSize="13sp"
-                    android:fontFamily="serif"
-                    android:inputType="number"
-                    android:maxLength="6"
-                    android:layout_marginTop="10dp"
-                    android:hint="PIN code" />
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-                    <View
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/new_address_house_no"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_centerVertical="true"
-                        android:background="@color/creative_yellow_dark" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/text_background"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:inputType="number"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:text="or"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@color/smoky_black"
-                        android:background="@color/white"
-                        android:fontFamily="serif"/>
-                </RelativeLayout>
+                        android:textSize="13sp"
+                        android:fontFamily="serif"
+                        android:maxLines="1"
+                        android:hint="Flat, House no., Building, Company" />
+                    <EditText
+                        android:id="@+id/new_address_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/text_background"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="13sp"
+                        android:fontFamily="serif"
+                        android:layout_marginTop="10dp"
+                        android:hint="Area, Colony, Street, Sector" />
+                    <EditText
+                        android:id="@+id/new_address_landmark"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/text_background"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="13sp"
+                        android:fontFamily="serif"
+                        android:layout_marginTop="10dp"
+                        android:hint="Landmark e.g. near Apollo Hospital" />
+                    <EditText
+                        android:id="@+id/new_address_town"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/text_background"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="13sp"
+                        android:maxLines="1"
+                        android:fontFamily="serif"
+                        android:layout_marginTop="10dp"
+                        android:hint="Town/City" />
+                    <EditText
+                        android:id="@+id/new_address_pincode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/text_background"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="13sp"
+                        android:fontFamily="serif"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:layout_marginTop="10dp"
+                        android:hint="PIN code" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:background="@color/creative_yellow_dark" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:text="or"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/smoky_black"
+                            android:background="@color/white"
+                            android:fontFamily="serif"/>
+                    </RelativeLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="10dp"
-                    android:drawableRight="@drawable/ic_baseline_gps"
-                    android:drawableTint="@color/smoky_black"
-                    android:background="@drawable/text_background"
-                    android:text="choose current location"
-                    android:paddingRight="10dp"/>
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/choose_current_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="10dp"
+                        android:drawableRight="@drawable/ic_baseline_gps"
+                        android:drawableTint="@color/smoky_black"
+                        android:background="@drawable/text_background"
+                        android:text="choose current location"
+                        android:textColor="@color/smoky_black"
+                        android:paddingRight="10dp"/>
+                </LinearLayout>
+            </ScrollView>
+
 
         </androidx.cardview.widget.CardView>
         <TextView

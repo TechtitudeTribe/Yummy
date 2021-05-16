@@ -1,14 +1,15 @@
 package com.techtitudetribe.yummy;
 
 public class MyOrdersAdapter {
-    String itemNames, itemDescription, itemPlacedDate, itemTotalAmount,count;
+    String itemNames, itemDescription, itemPlacedDate, itemTotalAmount;
+    long count;
 
     public MyOrdersAdapter()
     {
 
     }
 
-    public MyOrdersAdapter(String itemNames, String itemDescription, String itemPlacedDate, String itemTotalAmount, String count) {
+    public MyOrdersAdapter(String itemNames, String itemDescription, String itemPlacedDate, String itemTotalAmount, long count) {
         this.itemNames = itemNames;
         this.itemDescription = itemDescription;
         this.itemPlacedDate = itemPlacedDate;
@@ -48,11 +49,12 @@ public class MyOrdersAdapter {
         this.itemDescription = itemDescription;
     }
 
-    public String getCount() {
+    public long getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(long count) {
         this.count = count;
     }
+
 }

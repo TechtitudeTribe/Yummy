@@ -35,7 +35,7 @@
         android:layout_alignParentRight="true"
         android:translationZ="2dp"
         android:translationY="25dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="40dp"
         android:layout_alignBottom="@+id/my_addresses_card">
         <ImageView
             android:id="@+id/my_addresses_delete"
@@ -50,20 +50,6 @@
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp"
             android:src="@drawable/ic_delete"
-            app:tint="@color/creative_red"/>
-        <ImageView
-            android:id="@+id/my_addresses_edit"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="5dp"
-            android:background="@drawable/circular_background"
-            android:backgroundTint="@color/white"
-            android:translationZ="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_edit"
             app:tint="@color/smoky_black"/>
     </LinearLayout>
 

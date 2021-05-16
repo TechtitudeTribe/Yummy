@@ -3,6 +3,7 @@ package com.techtitudetribe.yummy;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,18 +48,29 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private GoogleApiClient mGoogleSignInClient;
     private static final String TAG = "LoginActivity";
     private FirebaseAuth mAuth;
+    private TextView registerNow;
+    private ProgressDialog LoadingBar;
+    private EditText email, password;
+    private ProgressBar emailProgressBar;
+    private TextView login;
+    private Boolean anim=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        LoadingBar = new ProgressDialog(this);
         bottomUp = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bottom_up_animation);
         bottomDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bottom_down_animation);
         topRightCorner = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.right_top_corner_animation);
         emailBottomDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.email_bottom_down);
         emailBottomUp = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.email_bottom_up);
 
+        email = (EditText) findViewById(R.id.login_email);
+        password = (EditText) findViewById(R.id.login_password);
+        login = (TextView) findViewById(R.id.login_button);
+        emailProgressBar = (ProgressBar) findViewById(R.id.email_progress_bar);
         methodLayout = (RelativeLayout) findViewById(R.id.login_method_relative_layout);
         loginMethodEmail = (RelativeLayout) findViewById(R.id.login_methods_email);
         loginHeader = (RelativeLayout) findViewById(R.id.login_header);
@@ -65,10 +78,46 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         phoneNumber = (EditText) findViewById(R.id.phone_number);
         continueWithGoogle = (TextView) findViewById(R.id.continue_with_google);
         continueWithEmail = (TextView) findViewById(R.id.continue_with_email);
+        registerNow = (TextView) findViewById(R.id.register_now_button);
         mAuth = FirebaseAuth.getInstance();
 
         methodLayout.setAnimation(bottomUp);
         loginHeader.setAnimation(topRightCorner);
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(TextUtils.isEmpty(email.getText().toString()))
+                {
+                    Toast.makeText(LoginActivity.this, "Invalid email...", Toast.LENGTH_SHORT).show();
+                }else
+                    if(TextUtils.isEmpty(password.getText().toString()))
+                    {
+                        Toast.makeText(LoginActivity.this, "Password is missing...", Toast.LENGTH_SHORT).show();
+                    }else
+                        {
+                            emailProgressBar.setVisibility(View.VISIBLE);
+                            mAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful())
+                                            {
+                                                sendUserToMainActivity();
+                                                Toast.makeText(LoginActivity.this, "Login Successfully...", Toast.LENGTH_SHORT).show();
+                                                emailProgressBar.setVisibility(View.GONE);
+                                            }
+                                            else
+                                            {
+                                                String message = task.getException().getMessage();
+                                                Toast.makeText(LoginActivity.this, "Error Occurred : "+message, Toast.LENGTH_SHORT).show();
+                                                emailProgressBar.setVisibility(View.GONE);
+                                            }
+                                        }
+                                    });
+                        }
+            }
+        });
 
         sendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +157,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
+        registerNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this,EmailSignupActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -137,22 +194,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
 
-            /*LoadingBar.show();
+            LoadingBar.show();
             LoadingBar.setContentView(R.layout.progress_bar);
             LoadingBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            LoadingBar.setCanceledOnTouchOutside(true);*/
+            LoadingBar.setCanceledOnTouchOutside(true);
 
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if(result.isSuccess())
             {
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-                Toast.makeText(this,"Plz wait",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Please wait...",Toast.LENGTH_SHORT).show();
             }
             else
             {
                 Toast.makeText(this, "Can't connect with Google", Toast.LENGTH_SHORT).show();
-                //LoadingBar.dismiss();
+                LoadingBar.dismiss();
             }
         }
     }
@@ -164,7 +221,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.d(TAG, "signInWith Credential:success");
                             String currentUser = mAuth.getCurrentUser().getUid();
                             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
                             userRef.addValueEventListener(new ValueEventListener() {
@@ -172,33 +229,35 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if (!snapshot.hasChild(currentUser))
                                     {
-
                                         HashMap hashMap = new HashMap();
                                         hashMap.put("Name","Username");
-                                        hashMap.put("Contact Number","+910000000000");
+                                        hashMap.put("Contact Number","0000000000");
                                         //hashMap.put("Address",address);
-                                        hashMap.put("Email","xyz@example.com");
+                                        hashMap.put("Email","xyz@gmail.com");
+
                                         userRef.child(currentUser).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
                                             @Override
                                             public void onComplete(@NonNull Task task) {
                                                 if (task.isSuccessful())
                                                 {
-                                                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                                    startActivity(intent);
+                                                    sendUserToMainActivity();
+                                                    Toast.makeText(LoginActivity.this, "You account created successfully...", Toast.LENGTH_SHORT).show();
+                                                    LoadingBar.dismiss();
                                                 }
                                                 else
                                                 {
                                                     String mssg = task.getException().getMessage();
-                                                    Toast.makeText(getApplicationContext(), "Error Occurred : "+mssg, Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LoginActivity.this, "Error Occurred : "+mssg, Toast.LENGTH_SHORT).show();
+                                                    LoadingBar.dismiss();
                                                 }
                                             }
                                         });
-
                                     }
                                     else
                                     {
-                                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                        startActivity(intent);
+                                        sendUserToMainActivity();
+                                        Toast.makeText(LoginActivity.this, "You are login successfully...", Toast.LENGTH_SHORT).show();
+                                        LoadingBar.dismiss();
                                     }
                                 }
 
@@ -207,15 +266,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                                 }
                             });
-
                             //sendUserToMainActivity();
-                            //LoadingBar.dismiss();
+
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             String message = task.getException().toString();
-                            //sendUserToLoginActivity();
+                            sendUserToLoginActivity();
                             Toast.makeText(LoginActivity.this, "Not authenticated : " + message, Toast.LENGTH_SHORT).show();
-                            //LoadingBar.dismiss();
+                            LoadingBar.dismiss();
                         }
                     }
                 });
@@ -239,6 +297,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void sendUserToMainActivity() {
         Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
+    }
+
+    private void sendUserToLoginActivity() {
+        Intent mainIntent = new Intent(LoginActivity.this,LoginActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();

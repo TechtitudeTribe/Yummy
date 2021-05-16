@@ -1,18 +1,20 @@
 package com.techtitudetribe.yummy;
 
 public class MenuItemAdapter {
-    String image,name,description,price;
+    String image,name,description,oldPrice,newPrice,status;
 
     public MenuItemAdapter()
     {
 
     }
 
-    public MenuItemAdapter(String image, String name, String description, String price) {
+    public MenuItemAdapter(String image, String name, String description, String oldPrice, String newPrice, String status) {
         this.image = image;
         this.name = name;
         this.description = description;
-        this.price = price;
+        this.oldPrice = oldPrice;
+        this.newPrice = newPrice;
+        this.status = status;
     }
 
     public String getImage() {
@@ -39,11 +41,27 @@ public class MenuItemAdapter {
         this.description = description;
     }
 
-    public String getPrice() {
-        return price;
+    public String getOldPrice() {
+        return oldPrice;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setOldPrice(String oldPrice) {
+        this.oldPrice = oldPrice;
+    }
+
+    public String getNewPrice() {
+        return newPrice;
+    }
+
+    public void setNewPrice(String newPrice) {
+        this.newPrice = newPrice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class MyOrdersActivity extends AppCompatActivity {
     private String currentUser;
     private ProgressBar progressBar;
     private RelativeLayout noOrdersLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,21 @@ public class MyOrdersActivity extends AppCompatActivity {
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         ordersListView.setLayoutManager(linearLayoutManager);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.my_orders_swipe_container);
+        swipeRefreshLayout.setOnRefreshListener(this::showMyOrders);
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this,R.color.creative_green),
+                ContextCompat.getColor(this,R.color.creative_red),
+                ContextCompat.getColor(this,R.color.creative_violet),
+                ContextCompat.getColor(this,R.color.creative_sky_blue));
+
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                showMyOrders();
+            }
+        });
 
         orderRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,7 +87,6 @@ public class MyOrdersActivity extends AppCompatActivity {
             }
         });
 
-        showMyOrders();
     }
 
     private void showMyOrders() {
@@ -111,6 +127,7 @@ public class MyOrdersActivity extends AppCompatActivity {
                         myOrderViewHolder.setItemPlacedDate(myOrderAdapter.getItemPlacedDate());
                         myOrderViewHolder.setCount(myOrderAdapter.getCount());
                         progressBar.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         myOrderViewHolder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -157,10 +174,11 @@ public class MyOrdersActivity extends AppCompatActivity {
             amount.setText("for Amount Rs."+itemTotalAmount);
         }
 
-        public void setCount(String count)
+        public void setCount(long count)
         {
             TextView orderNumber = (TextView) mView.findViewById(R.id.my_order_item_order_number);
-            orderNumber.setText(count);
+            orderNumber.setText(String.valueOf(count));
         }
     }
+
 }

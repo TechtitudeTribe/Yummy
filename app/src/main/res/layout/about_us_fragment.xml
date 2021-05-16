@@ -117,7 +117,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Techtitude Tribe was founded by a group of students with a vision of providing an easier way to help others transform their amazing ideas into real world, so that they may not feel that setting up a startup is a rocket-science.\nIt's motive is also to promote make-in-India moment. It is currently working and helping implement 6 great innovate ideas into the real world so that young entrepreneurs from around India may get help.\nThe startups which are being implemented under this organisation are 'Aadharshila', 'Shilpart', 'HandyKart', 'DrugAbouse', 'AttaChakki' etc. and morre and more startups are being added day-by-day to our organization."
+                android:text="Tectitude tribe is founded by a group of students with a vision of providing an easier way to help others and transform their ideas into real world , so that they shall not feel that setting up a start-up is a rocket science. It's motive is also to promote make in India initiative.\nCurrently , this group is working with six innovative ideas and try to implement them into the real world, so that young entrepreneurs around the india may get help.The start-ups which are being implemented under this organisation are 'Aadharshila', 'ShilpArt', 'DrugAbuse', 'HandyCart'. Sooner more start-ups would be added to our organization"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingBottom="20dp"
@@ -144,13 +144,7 @@
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal">
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/linkedin"
-                app:tint="@color/smoky_black"
-                android:translationZ="5dp"
-                android:layout_margin="5dp"/>
-            <ImageView
+                android:id="@+id/about_gmail"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/email"
@@ -163,14 +157,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <ImageView
+                android:id="@+id/about_facebook"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_margin="5dp"
                 android:src="@drawable/facebook"
-                app:tint="@color/smoky_black"
                 android:translationZ="5dp"
-                android:layout_margin="5dp"/>
+                app:tint="@color/smoky_black" />
+
             <ImageView
+                android:id="@+id/about_phone"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/phone_call"

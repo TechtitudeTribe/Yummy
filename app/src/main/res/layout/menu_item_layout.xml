@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
+        android:id="@+id/menu_item_layout_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
@@ -12,17 +13,19 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp">
+
+        <View
+            android:id="@+id/menu_item_view"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/creative_red"/>
         <RelativeLayout
             android:id="@+id/menu_item_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/creative_red">
-            <ImageView
-                android:id="@+id/menu_item_image"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:scaleType="fitXY"
-                android:background="@color/white"/>
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
             <androidx.cardview.widget.CardView
                 android:id="@+id/menu_item_cart_layout"
                 android:layout_width="40dp"
@@ -30,7 +33,7 @@
                 app:cardCornerRadius="20dp"
                 android:layout_alignParentTop="true"
                 android:translationZ="5dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:layout_alignParentRight="true">
                 <RelativeLayout
                     android:id="@+id/menu_item_cart_relative_layout"
@@ -55,9 +58,24 @@
                         android:layout_alignParentRight="true" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/menu_item_image_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="15dp"
+                android:translationZ="2dp"
+                android:layout_margin="5dp">
+                <ImageView
+                    android:id="@+id/menu_item_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/veg_pizza"
+                    android:background="@drawable/text_background"/>
+            </androidx.cardview.widget.CardView>
 
             <TextView
-                android:layout_below="@+id/menu_item_image"
+                android:layout_below="@+id/menu_item_image_card"
                 android:id="@+id/menu_item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,33 +83,37 @@
                 android:maxLines="1"
                 android:fontFamily="serif"
                 android:gravity="left"
-                android:layout_toLeftOf="@+id/menu_item_price"
+                android:layout_toLeftOf="@+id/menu_item_old_price"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/creative_red"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"/>
             <TextView
-                android:id="@+id/menu_item_price"
+                android:id="@+id/menu_item_old_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="399"
+                android:text="Rs. 399"
                 android:maxLines="1"
                 android:layout_alignParentRight="true"
-                android:drawablePadding="5dp"
-                android:drawableLeft="@drawable/ic_india_rupee_symbol"
-                android:drawableTint="@color/white"
                 android:fontFamily="serif"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="15dp"
-                android:textColor="@color/white"
-                android:layout_below="@+id/menu_item_image"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/menu_item_image_card"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"/>
+            <View
+                android:id="@+id/menu_item_layout_view1"
+                android:layout_width="60dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:layout_below="@+id/menu_item_image_card"
+                android:background="@color/creative_red"/>
             <TextView
                 android:id="@+id/menu_item_description"
                 android:layout_width="match_parent"
@@ -101,14 +123,31 @@
                 android:gravity="left"
                 android:justificationMode="inter_word"
                 android:textSize="14sp"
+                android:layout_toLeftOf="@+id/menu_item_old_price"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="15dp"
-                android:textColor="@color/white"
                 android:layout_below="@+id/menu_item_name"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"/>
+            <TextView
+                android:id="@+id/menu_item_new_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs. 399"
+                android:maxLines="1"
+                android:layout_alignParentRight="true"
+                android:fontFamily="serif"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/creative_red"
+                android:layout_below="@+id/menu_item_old_price"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
 
 
 </RelativeLayout>

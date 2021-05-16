@@ -8,7 +8,6 @@
     android:background="@color/white"
     tools:context=".MenuItemActivity">
 
-
     <RelativeLayout
         android:id="@+id/menu_item_header"
         android:layout_width="match_parent"
@@ -19,43 +18,29 @@
             android:src="@drawable/header"
             android:scaleType="fitXY"
             app:tint="@color/smoky_black"/>
-        <EditText
-            android:layout_marginTop="30dp"
-            android:id="@+id/search_by_dish"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="search by food item..."
-            android:maxLines="1"
-            android:gravity="left"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textSize="14sp"
-            android:fontFamily="serif"
-            android:textColor="@color/white"
-            android:background="@drawable/text_background"
-            android:backgroundTint="@color/white"
-            android:paddingTop="10dp"
-            android:paddingLeft="20dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="20dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search"
-            android:maxLines="1"
-            android:layout_below="@+id/search_by_dish"
-            android:gravity="left"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:textSize="14sp"
+            android:text="My\nMenu"
+            android:textColor="@color/creative_yellow_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
             android:fontFamily="serif"
-            android:textColor="@color/white"
-            android:background="@drawable/text_background"
+            android:layout_marginTop="55dp"/>
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_menu_books"
+            android:padding="10dp"
+            android:translationZ="5dp"
+            app:tint="@color/white"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/circular_background"
             android:backgroundTint="@color/creative_yellow_dark"
-            android:paddingTop="8dp"
-            android:paddingLeft="20dp"
-            android:paddingBottom="8dp"
-            android:paddingRight="20dp"/>
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
     <HorizontalScrollView
@@ -69,7 +54,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <LinearLayout
-                android:id="@+id/bestseller"
+                android:id="@+id/quick_bites"
                 android:layout_width="80dp"
                 android:translationZ="3dp"
                 android:layout_marginLeft="15dp"
@@ -80,7 +65,7 @@
                 android:background="@drawable/layout_background"
                 android:backgroundTint="@color/creative_yellow_dark">
                 <ImageView
-                    android:id="@+id/bestseller_image"
+                    android:id="@+id/quick_bites_image"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_marginTop="5dp"
@@ -88,10 +73,10 @@
                     app:tint="@color/smoky_black"
                     android:layout_gravity="center_horizontal"/>
                 <TextView
-                    android:id="@+id/bestseller_text"
+                    android:id="@+id/quick_bites_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bestseller"
+                    android:text="Quick Bites"
                     android:layout_marginTop="3dp"
                     android:textSize="13sp"
                     android:textColor="@color/smoky_black"
@@ -99,7 +84,7 @@
                     android:layout_gravity="center_horizontal"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/fast_food"
+                android:id="@+id/sweets"
                 android:layout_width="80dp"
                 android:translationZ="3dp"
                 android:layout_marginLeft="10dp"
@@ -110,18 +95,18 @@
                 android:background="@drawable/layout_background"
                 android:backgroundTint="@color/creative_yellow_dark">
                 <ImageView
-                    android:id="@+id/fast_food_image"
+                    android:id="@+id/sweets_image"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/fast_food"
+                    android:src="@drawable/sweets"
                     app:tint="@color/white"
                     android:layout_gravity="center_horizontal"/>
                 <TextView
-                    android:id="@+id/fast_food_text"
+                    android:id="@+id/sweets_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fast Food"
+                    android:text="Sweets"
                     android:layout_marginTop="3dp"
                     android:textSize="13sp"
                     android:textColor="@color/white"
@@ -129,10 +114,101 @@
                     android:layout_gravity="center_horizontal"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/veg"
+                android:id="@+id/drinks"
                 android:layout_width="80dp"
                 android:translationZ="3dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/layout_background"
+                android:backgroundTint="@color/creative_yellow_dark">
+                <ImageView
+                    android:id="@+id/drinks_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/drinks"
+                    app:tint="@color/white"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:id="@+id/drinks_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Drinks"
+                    android:layout_marginTop="3dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="serif"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/pizza"
+                android:layout_width="80dp"
+                android:translationZ="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/layout_background"
+                android:backgroundTint="@color/creative_yellow_dark">
+                <ImageView
+                    android:id="@+id/pizza_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/pizza"
+                    app:tint="@color/white"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:id="@+id/pizza_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pizza"
+                    android:layout_marginTop="3dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="serif"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/non_veg"
+                android:layout_width="80dp"
+                android:translationZ="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/layout_background"
+                android:backgroundTint="@color/creative_yellow_dark">
+                <ImageView
+                    android:id="@+id/non_veg_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/non_veg"
+                    app:tint="@color/white"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:id="@+id/non_veg_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Non-Veg"
+                    android:layout_marginTop="3dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="serif"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/veg"
+                android:layout_width="80dp"
+                android:translationZ="3dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_height="100dp"
                 android:orientation="vertical"
@@ -159,7 +235,7 @@
                     android:layout_gravity="center_horizontal"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/non_veg"
+                android:id="@+id/extra"
                 android:layout_width="80dp"
                 android:translationZ="3dp"
                 android:layout_marginLeft="10dp"
@@ -170,18 +246,139 @@
                 android:background="@drawable/layout_background"
                 android:backgroundTint="@color/creative_yellow_dark">
                 <ImageView
-                    android:id="@+id/non_veg_image"
+                    android:id="@+id/extra_image"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/non_veg"
+                    android:src="@drawable/fast_food"
                     app:tint="@color/white"
                     android:layout_gravity="center_horizontal"/>
                 <TextView
-                    android:id="@+id/non_veg_text"
+                    android:id="@+id/extra_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Non-Veg"
+                    android:text="Extras"
+                    android:layout_marginTop="3dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="serif"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/dairy"
+                android:layout_width="80dp"
+                android:translationZ="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/layout_background"
+                android:backgroundTint="@color/creative_yellow_dark">
+                <ImageView
+                    android:id="@+id/dairy_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/dairy"
+                    app:tint="@color/white"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:id="@+id/dairy_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dairy"
+                    android:layout_marginTop="3dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="serif"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/cakes"
+                android:layout_width="80dp"
+                android:translationZ="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/layout_background"
+                android:backgroundTint="@color/creative_yellow_dark">
+                <ImageView
+                    android:id="@+id/cakes_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/sweets"
+                    app:tint="@color/white"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:id="@+id/cakes_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cakes"
+                    android:layout_marginTop="3dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="serif"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/desserts"
+                android:layout_width="80dp"
+                android:translationZ="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/layout_background"
+                android:backgroundTint="@color/creative_yellow_dark">
+                <ImageView
+                    android:id="@+id/desserts_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/desserts"
+                    app:tint="@color/white"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:id="@+id/desserts_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Desserts"
+                    android:layout_marginTop="3dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="serif"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/combo"
+                android:layout_width="80dp"
+                android:translationZ="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/layout_background"
+                android:backgroundTint="@color/creative_yellow_dark">
+                <ImageView
+                    android:id="@+id/combo_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/others"
+                    app:tint="@color/white"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:id="@+id/combo_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Combo"
                     android:layout_marginTop="3dp"
                     android:textSize="13sp"
                     android:textColor="@color/white"
@@ -204,7 +401,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/others"
+                    android:src="@drawable/extras"
                     app:tint="@color/white"
                     android:layout_gravity="center_horizontal"/>
                 <TextView
@@ -263,5 +460,11 @@
         </LinearLayout>
     </FrameLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/shop_Item_Names_Text"
+        android:visibility="gone"
+        android:textColor="@color/white"/>
 
 </RelativeLayout>

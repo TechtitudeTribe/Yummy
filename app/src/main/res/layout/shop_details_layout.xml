@@ -18,7 +18,7 @@
             android:id="@+id/shop_details_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="@color/white">
+            android:background="@color/creative_green">
             <TextView
                 android:id="@+id/shop_details_name"
                 android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
                 android:layout_marginTop="5dp"
                 android:maxLines="1"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/creative_green"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:text="Shop Name"
                 android:fontFamily="serif"/>
@@ -43,16 +43,14 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="serif"
                 android:textStyle="bold"
-                android:textColor="@color/creative_green"/>
+                android:textColor="@color/white"/>
             <ImageView
                 android:id="@+id/shop_details_phone"
                 android:layout_below="@+id/shop_details_name"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:background="@drawable/circular_background"
-                android:backgroundTint="@color/white"
                 android:src="@drawable/phone_call"
-                app:tint="@color/creative_green"
+                app:tint="@color/white"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="140dp" />
             <ImageView
@@ -60,10 +58,8 @@
                 android:layout_below="@+id/shop_details_phone"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:background="@drawable/circular_background"
-                android:backgroundTint="@color/white"
                 android:src="@drawable/email"
-                app:tint="@color/creative_green"
+                app:tint="@color/white"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="140dp" />
         </RelativeLayout>
@@ -87,6 +83,7 @@
             android:id="@+id/shop_details_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="visible"
             android:indeterminateTint="@color/creative_yellow_dark"
             android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
@@ -97,9 +94,9 @@
         android:layout_height="80dp"
         android:src="@drawable/close"
         android:translationZ="7dp"
-        app:tint="@color/creative_green"
+        app:tint="@color/white"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="80dp"/>
 
 </RelativeLayout>

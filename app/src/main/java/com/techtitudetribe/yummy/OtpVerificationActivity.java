@@ -44,7 +44,6 @@ public class OtpVerificationActivity extends AppCompatActivity {
         phoneNumber = getIntent().getStringExtra("number").toString();
         mAuth=FirebaseAuth.getInstance();
 
-
         otpVerification = (TextView) findViewById(R.id.otp_verification);
         otpText = (EditText) findViewById(R.id.otp_text);
         otpTimer = (TextView) findViewById(R.id.otp_timer);
@@ -52,7 +51,6 @@ public class OtpVerificationActivity extends AppCompatActivity {
 
         initiateOtp();
         reverseTimer(60,otpTimer,otpResend);
-
 
         otpVerification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +117,6 @@ public class OtpVerificationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
-
                             String currentUser = mAuth.getCurrentUser().getUid();
                             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
                             userRef.addValueEventListener(new ValueEventListener() {
@@ -129,7 +126,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
                                     {
                                         HashMap hashMap = new HashMap();
                                         hashMap.put("Name","Username");
-                                        hashMap.put("Contact Number",phoneNumber);
+                                        hashMap.put("Contact Number",phoneNumber.replace("+91",""));
                                         //hashMap.put("Address",address);
                                         hashMap.put("Email","xyz@example.com");
 
@@ -138,8 +135,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task task) {
                                                 if (task.isSuccessful())
                                                 {
-                                                    Intent intent = new Intent(OtpVerificationActivity.this,MainActivity.class);
-                                                    startActivity(intent);
+                                                    sendUserToMainActivity();
                                                 }
                                                 else
                                                 {
@@ -151,8 +147,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
                                     }
                                     else
                                     {
-                                        Intent intent = new Intent(OtpVerificationActivity.this,MainActivity.class);
-                                        startActivity(intent);
+                                        sendUserToMainActivity();
                                     }
                                 }
 
@@ -192,4 +187,12 @@ public class OtpVerificationActivity extends AppCompatActivity {
             }
         }.start();
     }
+
+    private void sendUserToMainActivity() {
+        Intent mainIntent = new Intent(OtpVerificationActivity.this,MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
+    }
+
 }
