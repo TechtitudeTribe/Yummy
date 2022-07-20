@@ -29,10 +29,8 @@ public class ContactUsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.contact_us_fragment, container, false);
 
-
         phone = (ImageView) v.findViewById(R.id.need_help_phone);
         message = (TextView) v.findViewById(R.id.need_help_message);
-
 
         message.setOnClickListener(new View.OnClickListener() {
             @Override
